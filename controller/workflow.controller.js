@@ -51,5 +51,7 @@ const sleepUntilReminder = async (context, label, date) => {
 async function triggerReminder(context, label) {
   return await context.run(label, () => {
     console.log(`Triggering ${label} reminder`);
+
+    //email logic goes here
   });
 }
