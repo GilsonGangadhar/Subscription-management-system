@@ -7,7 +7,13 @@ if (!DB_URI) {
   );
 }
 
+let isConnected = false;
+
 async function connectToDatabase() {
+  if (isConnected && mongoose.connection.readyState === 1) {
+    return;
+  }
+
   try {
     await mongoose.connect(DB_URI);
     console.log(`connected to database via ${NODE_ENV} mode`);
