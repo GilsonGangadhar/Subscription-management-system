@@ -50,12 +50,12 @@ const fetchSubscription = async (context, subscriptionId) => {
   });
 };
 
-async function sleepUntilReminder(context, label, date) {
+const sleepUntilReminder = async (context, label, date) => {
   console.log(`Sleeping until ${label} reminder at ${date} `);
   await context.sleepUntil(label, date.toDate());
-}
+};
 
-async function triggerReminder(context, label, subscription) {
+const triggerReminder = async (context, label, subscription) => {
   return await context.run(label, async () => {
     console.log(`Triggering ${label} mail`);
 
@@ -65,4 +65,4 @@ async function triggerReminder(context, label, subscription) {
       subscription,
     });
   });
-}
+};
