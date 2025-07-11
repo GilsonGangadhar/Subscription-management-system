@@ -6,7 +6,7 @@ export const createSubscription = async (req, res, next) => {
   try {
     const subscription = await Subscription.create({
       ...req.body,
-      user: req.user._id, // user data is coming from authorize middleware
+      user: req.user._id, // user data is coming from middleware authorize
     });
 
     await workflowClient.trigger({
