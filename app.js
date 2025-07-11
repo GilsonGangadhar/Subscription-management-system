@@ -25,7 +25,7 @@ app.use("/api/v1/workflows", workflowRouter);
 app.use(errorMiddleware);
 
 app.get("/", (req, res) => {
-  res.send("Welcome to the subscription tracker API");
+  res.send("Welcome to the subscription management API");
 });
 
 app.listen(3000, async () => {
