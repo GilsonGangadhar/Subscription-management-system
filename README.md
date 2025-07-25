@@ -37,6 +37,7 @@ The project is built for scalability and security, using JWT for authentication 
   - Bcrypt: Password hashing for security.
   - Nodemailer: Email sending for subscription reminders.
   - arckjet: prevents bot attacks and spam calls
+  - dotenv: load environment variables from a .env file into process.env 
 
 ## 🚀 Installation
 1. **Clone the Repository**
@@ -56,3 +57,56 @@ The project is built for scalability and security, using JWT for authentication 
 ```bash
   npm start
    ```
+The server will start on http://localhost:5500 (or the port specified in .env).
+
+## Configuration
+Create a .env file (for development) in the project root with the following environment variables:
+```bash
+#PORT
+PORT=5500
+SERVER_URL
+
+#ENVIRONMENT
+NODE_ENV
+
+#DATABASE
+DB_URI
+
+#JWT AUTH
+
+JWT_SECRET
+JWT_EXPIRES_IN
+
+#ARCJET
+ARCJET_KEY
+ARCJET_ENV
+
+#UPSTASH
+QSTASH_URL
+QSTASH_TOKEN
+
+#NODEMAILER
+EMAIL_PASSWORD
+  ```
+
+& create a production env file with following variables:
+```bash
+NODE_ENV = 'production'
+
+#UPSTASH
+QSTASH_URL
+QSTASH_TOKEN
+QSTASH_CURRENT_SIGNING_KEY
+QSTASH_NEXT_SIGNING_KEY
+
+#VERCEL DEPLOY LINK
+VERCEL
+   ```
+Note: if you are hosting using vercel, better to write all required production level (non imp. ones) in the env section of vercel.
+
+   - Create an env.js file and extract env variables using dotenv package. And export it from that files for other files to be used.
+
+## Usage
+   - Start the Server: Run npm start to launch the server.
+   - Test API Endpoints: Use tools like Postman to use or interact with the APIs
+   - Receive Email Reminders: The system automatically checks for upcoming subscription renewals and sends email reminders to users based on the configured schedule.
