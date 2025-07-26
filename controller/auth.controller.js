@@ -73,7 +73,7 @@ export const signIn = async (req, res, next) => {
       expiresIn: JWT_EXPIRES_IN,
     });
 
-    res.statusCode(200).json({
+    res.status(200).json({
       success: true,
       message: "User signed in successfully",
       data: {
