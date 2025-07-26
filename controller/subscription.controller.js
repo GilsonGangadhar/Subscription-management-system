@@ -51,10 +51,10 @@ export const createSubscription = async (req, res, next) => {
 
 export const getAllSubscriptions = async (req, res, next) => {
   try {
-    const subscriptions = await Subscription.find({ user: req.user._id });
+    const subscriptions = await Subscription.find();
 
     if (!subscriptions || subscriptions.length === 0) {
-      const error = new Error("No Subscriptions has been found for this user");
+      const error = new Error("No subscriptions found");
       error.statusCode = 404;
       throw error;
     }
@@ -77,6 +77,13 @@ export const getUserSubscriptions = async (req, res, next) => {
     }
 
     const userSubscriptions = await Subscription.find({ user: req.params.id });
+
+    if (!userSubscriptions || userSubscriptions.length === 0) {
+      const error = new Error("No Subscriptions has been found for this user");
+      error.statusCode = 404;
+      throw error;
+    }
+
     res.status(201).json({
       success: true,
       data: userSubscriptions,
