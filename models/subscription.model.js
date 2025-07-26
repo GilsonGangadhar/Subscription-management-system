@@ -18,58 +18,58 @@ const subscriptionSchema = new mongoose.Schema(
       type: String,
       enum: ["INR", "USD", "EUR"],
       default: "INR",
-      frequency: {
-        type: String,
-        enum: ["daily", "weekly", "monthly", "yearly"],
+    },
+    frequency: {
+      type: String,
+      enum: ["daily", "weekly", "monthly", "yearly"],
+      required: [true, "Frequency is required"],
+    },
+    category: {
+      type: String,
+      enum: [
+        "sports",
+        "news",
+        "entertainment",
+        "lifestyle",
+        "technology",
+        "finance",
+        "politics",
+        "other",
+      ],
+      required: [true, "Category is required"],
+    },
+    paymentMethod: {
+      type: String,
+      required: [true, "Payment method is required"],
+      trim: true,
+    },
+    status: {
+      type: String,
+      enum: ["active", "cancelled", "expired"],
+      default: "active",
+    },
+    startDate: {
+      type: Date,
+      required: [true, "Start Date is required"],
+      validate: {
+        validator: (value) => value <= new Date(),
+        message: "Start date must be in the past",
       },
-      category: {
-        type: String,
-        enum: [
-          "sports",
-          "news",
-          "entertainment",
-          "lifestyle",
-          "technology",
-          "finance",
-          "politics",
-          "other",
-        ],
-        required: true,
-      },
-      paymentMethod: {
-        type: String,
-        required: true,
-        trim: true,
-      },
-      status: {
-        type: String,
-        enum: ["active", "cancelled", "expired"],
-        default: "active",
-      },
-      startDate: {
-        type: Date,
-        required: true,
-        validate: {
-          validator: (value) => value <= new Date(),
-          message: "Start date must be in the past",
+    },
+    renewalDate: {
+      type: Date,
+      validate: {
+        validator: function (value) {
+          return value >= this.startDate;
         },
+        message: "Renewal Date must be after the start date",
       },
-      renewalDate: {
-        type: Date,
-        required: true,
-        validate: {
-          validator: function (value) {
-            return value >= this.startDate;
-          },
-          message: "Renewal Date must be after the start date",
-        },
-      },
-      user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
-        index: true,
-      },
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+      index: true,
     },
   },
   { timestamps: true }
